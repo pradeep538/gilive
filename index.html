@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoLive.dev - Your MVP Deserves Better Than Your Laptop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 850: '#151e2e', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-bg-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .gradient-bg-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.25);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(2deg); }
+            66% { transform: translateY(-10px) rotate(-2deg); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(102, 126, 234, 0.8), 0 0 80px rgba(102, 126, 234, 0.4); }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 400% 400%;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-step {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .timeline-step.active {
+            animation: stepActivate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes stepActivate {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .progress-bar {
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .draw-svg {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+
+        .draw-svg.animate {
+            animation: dash 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes bounce-in {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .bounce-in {
+            animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .rotate-slow {
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        .text-shadow-glow {
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        /* Dynamic Grid Background */
+        .dynamic-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes grid-move {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Rocket Launch Styles */
+        #rocket-group {
+            animation: rocket-hover 3s ease-in-out infinite;
+        }
+
+        @keyframes rocket-hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Shake Animation during Boost */
+        .boost-mode #rocket-group {
+            animation: rocket-shake 0.1s linear infinite !important;
+        }
+        
+        @keyframes rocket-shake {
+             0% { transform: translate(0, 0); }
+             25% { transform: translate(1px, -1px); }
+             50% { transform: translate(-1px, 1px); }
+             75% { transform: translate(1px, 1px); }
+             100% { transform: translate(0, 0); }
+        }
+
+        /* Flame Animation */
+        .flame-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .flame {
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            bottom: 0;
+            transform-origin: top center;
+            transition: all 0.2s ease-out; /* Smooth flame growth */
+        }
+
+        .main-fire {
+            width: 24px;
+            height: 70px;
+            background: linear-gradient(to bottom, #fde047, #f97316);
+            animation: flame-burn 0.1s infinite alternate;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+            filter: blur(2px);
+        }
+
+        .inner-fire {
+            width: 12px;
+            height: 50px;
+            background: #fff;
+            animation: flame-burn 0.15s infinite alternate-reverse;
+            filter: blur(1px);
+        }
+
+        @keyframes flame-burn {
+            from { transform: scaleY(1); opacity: 0.9; }
+            to { transform: scaleY(1.2); opacity: 1; }
+        }
+
+        /* Cloud Animation */
+        .cloud {
+            background: rgba(255,255,255,0.9);
+            border-radius: 50px;
+            position: absolute;
+        }
+        
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+            width: 60%;
+            height: 150%;
+            top: -60%;
+            left: 20%;
+        }
+
+        .cloud-back {
+            animation: cloud-fall-slow 10s linear infinite;
+        }
+
+        .cloud-front {
+            animation: cloud-fall-fast 4s linear infinite;
+        }
+
+        @keyframes cloud-fall-slow {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(600px); }
+        }
+
+        @keyframes cloud-fall-fast {
+            from { transform: translateY(-200px); }
+            to { transform: translateY(800px); }
+        }
+
+        /* Stars */
+        .stars {
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            width: 100%;
+            height: 200%;
+            animation: star-scroll 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes star-scroll {
+            from { transform: translateY(0); }
+            to { transform: translateY(50%); }
+        }
+
+        /* Boost Mode */
+        .boost-mode .main-fire {
+            height: 140px; /* Bigger flame */
+            width: 30px;
+            background: linear-gradient(to bottom, #fff, #60a5fa, #3b82f6); /* Hotter blue flame */
+            box-shadow: 0 0 40px #3b82f6;
+        }
+        
+        .boost-mode .inner-fire {
+            height: 80px;
+        }
+
+        .boost-mode .cloud-back { animation-duration: 2s; }
+        .boost-mode .cloud-front { animation-duration: 0.8s; }
+        .boost-mode .stars { animation-duration: 2s; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm fixed w-full top-0 z-50 border-b border-gray-100 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <svg class="w-10 h-10 text-purple-600 dark:text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <div class="absolute inset-0 blur-lg opacity-50 bg-purple-600 rounded-full"></div>
+                    </div>
+                    <span class="text-2xl font-bold gradient-text">GoLive.dev</span>
+                </div>
+                
+                <!-- Right Side -->
+                <div class="flex items-center gap-6">
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#how-it-works" class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition font-medium">How It Works</a>
+                        <a href="#pricing" class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition font-medium">Pricing</a>
+                        <a href="#faq" class="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition font-medium">FAQ</a>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800 transition focus:outline-none">
+                        <!-- Sun (Dark Mode) -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <!-- Moon (Light Mode) -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+
+                    <a href="#pricing" class="gradient-bg text-white px-6 py-2.5 rounded-lg hover:opacity-90 transition font-semibold shadow-lg hover:shadow-xl hidden md:inline-block">
+                        Get Started →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4 overflow-hidden relative">
+        <!-- Animated background elements -->
+        <div class="dynamic-grid"></div>
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <div class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                        </span>
+                        Limited Slots Available
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-tight mb-6">
+                        Stop Coding.<br/>
+                        Start <span class="gradient-text text-shadow-glow">Shipping.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                        Your MVP is ready. But you're stuck wrestling with app stores, servers, and deployment chaos.
+                    </p>
+                    <p class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-8">
+                        We'll take you from <span class="bg-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-100 px-2 py-1 rounded">localhost</span> to <span class="bg-green-200 dark:bg-green-900/50 dark:text-green-100 px-2 py-1 rounded">production</span> in 7-10 days. 
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a href="#pricing" class="group gradient-bg text-white px-8 py-4 rounded-xl text-lg font-bold hover:opacity-90 transition shadow-xl hover:shadow-2xl pulse-glow flex items-center justify-center gap-2">
+                            Launch My Product
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
+                        <a href="#how-it-works" class="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl text-lg font-bold hover:bg-purple-50 transition shadow-lg hover:shadow-xl inline-block text-center">
+                            See Process →
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-8 text-sm text-gray-700 dark:text-gray-300">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 1a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <span class="font-semibold">Fixed 7-10 Days</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <span class="font-semibold">No Surprises</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <span class="font-semibold">Done Right</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Native Rocket Launch Animation -->
+                <div id="rocketContainer" class="relative h-[500px] fade-in-up w-full flex items-center justify-center perspective-container overflow-hidden bg-gradient-to-b from-blue-900 via-indigo-900 to-purple-900 cursor-pointer group rounded-xl">
+                    
+                    <!-- Scrolling Background (Clouds/Stars) -->
+                    <div class="sky-scroller absolute inset-0 z-0">
+                        <!-- Stars -->
+                        <div class="stars"></div>
+                        <!-- Background Clouds -->
+                        <div class="cloud cloud-back w-32 h-12 top-20 left-10 opacity-30"></div>
+                        <div class="cloud cloud-back w-40 h-16 top-60 right-20 opacity-20"></div>
+                        <div class="cloud cloud-back w-24 h-10 top-80 left-1/3 opacity-25"></div>
+                    </div>
+
+                    <!-- The Rocket -->
+                    <div id="rocket-group" class="relative z-10 w-[200px] h-[400px] transition-transform duration-100 ease-out flex flex-col items-center justify-center" style="transform-style: preserve-3d;">
+                        
+                        <!-- Rocket SVG -->
+                        <svg viewBox="0 0 200 400" class="w-full h-full drop-shadow-2xl filter drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                            <defs>
+                                <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ffffff" />
+                                    <stop offset="50%" stop-color="#f1f5f9" />
+                                    <stop offset="100%" stop-color="#cbd5e1" />
+                                </linearGradient>
+                                <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38bdf8" />
+                                    <stop offset="100%" stop-color="#3b82f6" />
+                                </linearGradient>
+                                <filter id="fire-blur">
+                                    <feGaussianBlur stdDeviation="4" />
+                                </filter>
+                            </defs>
+                            
+                            <!-- Fins (Back) -->
+                            <path d="M 60,300 L 40,360 L 60,340 Z" fill="#7c3aed" />
+                            <path d="M 140,300 L 160,360 L 140,340 Z" fill="#6d28d9" />
+
+                            <!-- Main Body -->
+                            <path d="M 100,50 
+                                     Q 140,100 140,250 
+                                     L 140,340 
+                                     Q 100,350 60,340 
+                                     L 60,250 
+                                     Q 60,100 100,50 Z" 
+                                     fill="url(#rocketBody)" />
+                                     
+                            <!-- Central Fin/Detail -->
+                            <rect x="95" y="200" width="10" height="140" fill="#e2e8f0" opacity="0.5" />
+
+                            <!-- Window -->
+                            <circle cx="100" cy="150" r="25" fill="#e2e8f0" stroke="#94a3b8" stroke-width="4"/>
+                            <circle cx="100" cy="150" r="20" fill="url(#windowGrad)" />
+                            <circle cx="105" cy="145" r="5" fill="#ffffff" opacity="0.6" />
+
+                            <!-- Fins (Front) -->
+                            <path d="M 100,280 L 100,360 Z" stroke="#7c3aed" stroke-width="2" />
+                            
+                            <!-- Nozzle -->
+                            <path d="M 80,340 L 120,340 L 110,360 L 90,360 Z" fill="#475569" />
+                        </svg>
+
+                        <!-- Engine Flame (DOM Element for easier animation) -->
+                        <div class="flame-container absolute bottom-[40px]">
+                            <div class="flame main-fire"></div>
+                            <div class="flame inner-fire"></div>
+                        </div>
+                    </div>
+
+                    <!-- Foreground Clouds (Fast) -->
+                    <div class="sky-scroller absolute inset-0 z-20 pointer-events-none">
+                        <div class="cloud cloud-front w-48 h-20 top-[-100px] left-[-50px] opacity-80"></div>
+                        <div class="cloud cloud-front w-64 h-24 top-[500px] right-[-50px] opacity-70"></div>
+                    </div>
+                    
+                    <!-- Hint -->
+                    <div class="absolute bottom-6 text-white/50 font-mono text-xs tracking-widest uppercase z-30 group-hover:text-white transition-colors select-none">
+                        Click to Launch
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">You've Built Something Amazing.<br/>But It's Still on Your Laptop.</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Building products is easier than ever. But launching them? That's still a nightmare.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-red-50 dark:bg-red-950/30 border-2 border-red-200 dark:border-red-900/50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-red-500 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">App Store Hell</h3>
+                    <p class="text-gray-700 dark:text-gray-400">Rejected 3 times. Missing metadata. Wrong certificates. Weeks of frustration.</p>
+                </div>
+
+                <div class="bg-orange-50 dark:bg-orange-950/30 border-2 border-orange-200 dark:border-orange-900/50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">Server Chaos</h3>
+                    <p class="text-gray-700 dark:text-gray-400">Production crashed. Environment variables missing. SSL expired. It's 2AM.</p>
+                </div>
+
+                <div class="bg-yellow-50 dark:bg-yellow-950/30 border-2 border-yellow-200 dark:border-yellow-900/50 rounded-2xl p-8 card-hover">
+                    <div class="w-14 h-14 bg-yellow-500 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">No Analytics</h3>
+                    <p class="text-gray-700 dark:text-gray-400">You're live! But you have no idea if anyone's using it. Or where it's breaking.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Sound familiar?</p>
+                <p class="text-xl text-gray-600 dark:text-gray-400">We've launched hundreds of products. <span class="font-semibold text-purple-600 dark:text-purple-400">We know exactly what to do.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Process Section -->
+    <section id="how-it-works" class="py-20 px-4 bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden transition-colors duration-300">
+        <div class="absolute inset-0 opacity-30 dark:opacity-10">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-300 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">The GoLive Process</h2>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-blue-200 max-w-3xl mx-auto">
+                    A battle-tested system that takes you from <span class="font-semibold">working MVP</span> to <span class="font-semibold">production launch</span> in days, not weeks.
+                </p>
+            </div>
+
+            <!-- Animated SVG Process Flow -->
+            <div class="mb-16">
+                <svg id="processFlow" viewBox="0 0 1000 400" class="w-full h-auto">
+                    <defs>
+                        <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#667eea" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- Connecting path -->
+                    <path id="flowPath" d="M 100 200 L 250 200 L 300 150 L 450 150 L 500 200 L 650 200 L 700 250 L 850 250" 
+                          stroke="url(#pathGradient)" 
+                          stroke-width="4" 
+                          fill="none" 
+                          stroke-dasharray="10,5"
+                          marker-end="url(#arrowhead)"
+                          class="draw-svg"/>
+                    
+                    <!-- Progress circles -->
+                    <g id="step1" class="process-step" style="cursor: pointer;">
+                        <circle cx="100" cy="200" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
+                        <text x="100" y="210" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">1</text>
+                        <text x="100" y="270" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Intake</text>
+                    </g>
+                    
+                    <g id="step2" class="process-step" style="cursor: pointer;">
+                        <circle cx="300" cy="150" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
+                        <text x="300" y="160" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">2</text>
+                        <text x="300" y="110" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Store Setup</text>
+                    </g>
+                    
+                    <g id="step3" class="process-step" style="cursor: pointer;">
+                        <circle cx="500" cy="200" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
+                        <text x="500" y="210" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">3</text>
+                        <text x="500" y="270" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Infrastructure</text>
+                    </g>
+                    
+                    <g id="step4" class="process-step" style="cursor: pointer;">
+                        <circle cx="700" cy="250" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
+                        <text x="700" y="260" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">4</text>
+                        <text x="700" y="310" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Analytics</text>
+                    </g>
+                    
+                    <g id="step5" class="process-step" style="cursor: pointer;">
+                        <circle cx="900" cy="250" r="50" fill="#10b981" stroke="#059669" stroke-width="4"/>
+                        <path d="M 880 250 L 895 265 L 925 235" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <text x="900" y="320" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Live! 🚀</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Process Steps Details -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-purple-100 dark:border-purple-900/30" data-step="1">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Intake</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Quick form. Tell us about your MVP. We'll map out your launch path.</p>
+                    <div class="mt-4 text-xs font-semibold text-purple-600 dark:text-purple-400">Day 1</div>
+                </div>
+
+                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-blue-100 dark:border-blue-900/30" data-step="2">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">App Stores</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Accounts configured. Certificates signed. Metadata perfected. Ready to submit.</p>
+                    <div class="mt-4 text-xs font-semibold text-blue-600 dark:text-blue-400">Days 2-4</div>
+                </div>
+
+                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-green-100 dark:border-green-900/30" data-step="3">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Infrastructure</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Production ready. SSL secured. Environments separated. Zero downtime.</p>
+                    <div class="mt-4 text-xs font-semibold text-green-600 dark:text-green-400">Days 3-5</div>
+                </div>
+
+                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-yellow-100 dark:border-yellow-900/30" data-step="4">
+                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/50 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Events tracked. Crashes monitored. Data flowing. You'll know everything.</p>
+                    <div class="mt-4 text-xs font-semibold text-yellow-600 dark:text-yellow-400">Days 4-6</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <div class="inline-block bg-green-100 border-2 border-green-300 rounded-2xl px-8 py-6">
+                    <p class="text-2xl font-bold text-green-800 mb-2">🎉 Days 7-10: You're Live!</p>
+                    <p class="text-green-700">Store links delivered. Analytics flowing. Marketing playbooks in hand. Time to ship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get Section -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">What You Actually Get</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400">No fluff. No agency bloat. Just what you need to launch.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Included -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-3xl p-8 shadow-xl border-2 border-green-200 dark:border-green-800">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 dark:text-white">Included ✓</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">App Store & Play Store</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Setup, submission, and resubmission support</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Production Infrastructure</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Servers, SSL, domains, environment setup</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Analytics & Monitoring</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Events, crashes, user behavior from Day 1</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Launch Playbooks</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Marketing guides, checklists, what to do next</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Not Included -->
+                <div class="bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-3xl p-8 shadow-xl border-2 border-red-200 dark:border-red-800">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 dark:text-white">Not Included ✗</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Feature Development</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">We ship what you built, not build what you dream</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">UI/UX Redesign</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Your product, your design decisions</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Marketing Execution</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">We give you the playbook, you run the plays</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl p-4">
+                            <svg class="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/>
+                            </svg>
+                            <div>
+                                <p class="font-semibold text-gray-900 dark:text-white">Payment Integration</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Stripe setup? That's v2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-100 border-2 border-purple-300 rounded-2xl p-8 text-center">
+                <p class="text-xl md:text-2xl font-bold text-purple-900 mb-2">
+                    💡 Clear scope = No surprises = Happy founders
+                </p>
+                <p class="text-purple-800">We do one thing extremely well: Get your working MVP into production.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-4 bg-slate-950 animated-gradient relative overflow-hidden">
+        <!-- Background Glows -->
+        <div class="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[128px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Pay for what you need</h2>
+                <p class="text-xl text-blue-200">Simple, transparent pricing for every stage of growth.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+
+                <!-- Essentials Plan -->
+                <div class="bg-slate-900 rounded-3xl p-8 border border-blue-900/50 hover:border-blue-500/50 transition flex flex-col relative shadow-[0_0_40px_-10px_rgba(59,130,246,0.15)] hover:shadow-[0_0_60px_-10px_rgba(59,130,246,0.25)]">
+                    <div class="absolute inset-0 bg-blue-500/5 rounded-3xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <h3 class="text-3xl font-bold text-white mb-4">Essentials Plan</h3>
+                        <p class="text-slate-400 mb-8 min-h-[48px]">For growing organizations with small to mid-size teams.</p>
+                        
+                        <a href="https://docs.google.com/forms/d/12fYtg6MSkoXpmVv6oKHleUINTWCXLbKofvc6TFom1YE/edit" target="_blank" class="block w-full bg-white text-slate-900 font-bold py-3 px-6 rounded-full text-center hover:bg-slate-200 transition mb-8">
+                            Contact Sales
+                        </a>
+
+                        <ul class="space-y-4 text-slate-300 text-sm flex-1">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-600 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong>Web + iOS + Android</strong> Deployment</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-600 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>Custom Domain & SSL Setup</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-600 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>Automated CI/CD Pipelines</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-600 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>Standard Email Support</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-gradient-to-br from-blue-900/40 to-slate-900 rounded-3xl p-8 border border-blue-500/30 hover:border-blue-400/50 transition flex flex-col relative overflow-hidden group">
+                    <!-- Glow effect -->
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px]"></div>
+                    
+                    <div class="relative z-10 flex flex-col h-full">
+                        <h3 class="text-3xl font-bold text-white mb-4">Enterprise Plan</h3>
+                        <p class="text-blue-100/70 mb-8 min-h-[48px]">For large-scale organizations with complex needs.</p>
+                        
+                        <a href="https://docs.google.com/forms/d/12fYtg6MSkoXpmVv6oKHleUINTWCXLbKofvc6TFom1YE/edit" target="_blank" class="block w-full bg-white text-slate-900 font-bold py-3 px-6 rounded-full text-center hover:bg-slate-200 transition mb-8 shadow-lg shadow-blue-900/20">
+                            Contact Sales
+                        </a>
+
+                        <ul class="space-y-4 text-blue-50/80 text-sm flex-1">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-500 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span><strong>Everything in Essentials</strong></span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-500 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>Custom Cloud Infrastructure (AWS/GCP)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-500 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>Multi-Region High Availability</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-white bg-blue-500 rounded-full p-1 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                <span>24/7 Dedicated Support Channel</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-20 px-4 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Real Founders. Real Launches.</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400">We've helped dozens of founders escape localhost hell.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-purple-500/50 transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            S
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Sarah K.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">AI Writing Tool</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "I spent 3 weeks trying to get my app approved. GoLive did it in 4 days. Worth every penny."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-green-500/50 transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            M
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Mike T.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Fitness App</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Finally launched after 6 months of 'almost ready'. Analytics were tracking from day one. Game changer."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-pink-500/50 transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            A
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Alex P.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Social Platform</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Server setup would've taken me weeks. They had everything production-ready in 3 days. Insane."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900 dark:text-white">Questions?</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400 text-center mb-16">We've got answers.</p>
+
+            <div class="space-y-4">
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>Do I need to have a working MVP?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <strong>Yes.</strong> GoLive is for founders who've already built something. We don't build features—we get what you've built into production. If you're still in the "idea stage," we're not the right fit yet.
+                    </p>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>What if my app gets rejected?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        We'll fix it and resubmit. <strong>Unlimited resubmissions are included.</strong> Most apps get approved on the first try, but when they don't, we handle it. No extra charge.
+                    </p>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>Can you help me get users?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        We give you the playbooks—launch channels, early feedback strategies, what works and what doesn't. But we don't execute marketing campaigns. You know your product best. We arm you with the knowledge to launch smart.
+                    </p>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>What platforms do you support?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <strong>Web, iOS, and Android.</strong> You can launch on all three for the same price. One platform or all three—your call.
+                    </p>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>Why only 10 launches per month?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <strong>Quality over quantity.</strong> Every launch gets white-glove attention. We don't scale until we've nailed the process. Right now, that means 10 founders per month get the best launch experience possible.
+                    </p>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg group border-2 border-gray-100 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-500 transition">
+                    <summary class="font-bold text-lg cursor-pointer list-none flex justify-between items-center text-gray-900 dark:text-white">
+                        <span>What happens after launch?</span>
+                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 transform group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                        You own everything. Full access to your infrastructure, analytics, and store accounts. Ongoing maintenance and updates are on you—but we give you all the credentials and docs you need to manage it yourself.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 px-4 gradient-bg relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,0 L100,0 L100,100 L0,100 Z" fill="url(#grid)" />
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="max-w-4xl mx-auto text-center text-white relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">Your Product is Ready.</h2>
+            <p class="text-2xl md:text-3xl mb-8 opacity-95">The world just doesn't know it yet.</p>
+            <p class="text-xl mb-10 opacity-90">Stop tweaking. Stop waiting. Stop overthinking.<br/>Let's get you live in 7-10 days.</p>
+            <button class="bg-white text-purple-600 px-12 py-5 rounded-xl text-2xl font-bold hover:bg-gray-100 transition shadow-2xl hover:shadow-3xl transform hover:scale-105">
+                Book Your Launch Now →
+            </button>
+            <p class="text-sm mt-8 opacity-75">🔥 3 slots left this month • First-come, first-served</p>
+        </div>
+    </section>
+
+    <!-- Mega Footer (Enterprise Style) -->
+    <footer class="bg-slate-950 text-slate-400 font-sans border-t border-slate-900">
+        <!-- Newsletter Section -->
+
+
+        <!-- Main Grid -->
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+                <!-- Col 2: Platform -->
+                <div>
+                    <h5 class="text-white font-semibold mb-6">Platform</h5>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Continuous Delivery</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">MVP Modernization</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Feature Flags</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Cloud Infrastructure</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition flex items-center gap-2">Database DevOps <span class="text-[10px] bg-indigo-900 text-indigo-300 px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">New</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: AI & Pricing -->
+                <div>
+                    <h5 class="text-white font-semibold mb-6">GoLive AI</h5>
+                    <ul class="space-y-4 text-sm mb-8">
+                        <li><a href="#" class="hover:text-indigo-400 transition">AI Code Generation</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Auto-QA Testing</a></li>
+                    </ul>
+                    <h5 class="text-white font-semibold mb-6">Pricing</h5>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Startup Plans</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Enterprise</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Resources -->
+                <div>
+                    <h5 class="text-white font-semibold mb-6">Resources</h5>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-indigo-400 transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Customer Stories</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">DevOps Academy</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Community Hub</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 5: Company -->
+                <div>
+                    <h5 class="text-white font-semibold mb-6">Company</h5>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-indigo-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Partners</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-indigo-400 transition">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-slate-900 bg-slate-950">
+            <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <span class="text-slate-500">© 2026 GoLive Inc.</span>
+                    <div class="flex gap-6">
+                        <a href="#" class="hover:text-white transition">Terms</a>
+                        <a href="#" class="hover:text-white transition">Privacy</a>
+                        <a href="#" class="hover:text-white transition">Do Not Sell My Info</a>
+                    </div>
+                </div>
+                <div class="flex gap-5">
+                    <!-- Social Icons -->
+                    <a href="#" class="text-slate-500 hover:text-white transition">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="#" class="text-slate-500 hover:text-white transition">
+                        <span class="sr-only">X (Twitter)</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z"/></svg>
+                    </a>
+                    <a href="#" class="text-slate-500 hover:text-white transition">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(20px, -50px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(50px, 50px) scale(1.05); }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fade in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Timeline animation
+            const timelineSteps = document.querySelectorAll('.timeline-step');
+            
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const step = entry.target;
+                        const stepNumber = parseInt(step.dataset.step);
+                        
+                        setTimeout(() => {
+                            step.classList.add('active');
+                        }, stepNumber * 150);
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            timelineSteps.forEach(step => {
+                timelineObserver.observe(step);
+            });
+
+            // SVG path animation
+            const flowPath = document.getElementById('flowPath');
+            if (flowPath) {
+                const pathObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            flowPath.classList.add('animate');
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                pathObserver.observe(flowPath);
+            }
+
+            // Rocket Launch Interaction
+            const rocketContainer = document.getElementById('rocketContainer');
+            const rocket = document.getElementById('rocket-group');
+            
+            if (rocketContainer && rocket) {
+                // Parallax Tilt
+                rocketContainer.addEventListener('mousemove', (e) => {
+                    if (rocketContainer.classList.contains('boost-mode')) return; // reduce tilt during boost
+                    
+                    const rect = rocketContainer.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    
+                    const rotateY = x * 20; 
+                    const rotateX = -y * 10;
+                    
+                    rocket.style.transform = `translateX(${x * 20}px) translateY(${y * 10}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                // Reset on leave & Turn off boost
+                rocketContainer.addEventListener('mouseleave', () => {
+                     rocket.style.transform = `translateX(0) translateY(0) rotateX(0) rotateY(0)`;
+                     rocketContainer.classList.remove('boost-mode');
+                });
+
+                // Boost Interaction (Click Toggle)
+                rocketContainer.addEventListener('click', () => {
+                    rocketContainer.classList.toggle('boost-mode');
+                    
+                    // Visual pop on click
+                    rocket.style.transform = 'scale(1.05)';
+                    setTimeout(() => { rocket.style.transform = ''; }, 100);
+                });
+            }
+
+            // Process step interactions
+            document.querySelectorAll('.process-step').forEach((step, index) => {
+                step.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                step.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const navHeight = 64;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // Check saved preference - Default to DARK if no preference
+            if (localStorage.theme === 'light') {
+                html.classList.remove('dark');
+            } else {
+                html.classList.add('dark');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                if (html.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
+            });
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in-up').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
