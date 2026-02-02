@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoLive.dev - Launch Your MVP in 2-3 Days</title>
+    <!-- Global site tag (gtag.js) - Google Ads: 407313251 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-407313251"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-407313251');
+    </script>
     <meta name="description" content="GoLive.dev takes your MVP from localhost to production in 2-3 days. We handle App Store submission, AWS/GCP infrastructure, CI/CD, and analytics so you can focus on building.">
     <meta name="keywords" content="MVP launch service, app store deployment, devops for startups, managed infrastructure, SRE as a service, iOS deployment, Android launch, React Native deployment, Flutter deployment, launch fast">
     <meta name="author" content="GoLive.dev">
@@ -1386,6 +1394,14 @@
                   link_url: href,
                   element_id: id
               });
+
+              // Google Ads Conversion Tracking
+              // Trigger when clicking links to the Google Form (Conversion)
+              if (href && href.includes('docs.google.com/forms')) {
+                  // Standard GTag Conversion Event
+                  gtag('event', 'conversion', {'send_to': 'AW-407313251/xgXtCL2a7tcbEOO2nMIB'});
+                  console.log('Conversion Event Fired! 💰');
+              }
           }
       });
 
