@@ -1345,5 +1345,78 @@
             }, 100);
         });
     </script>
+    <!-- Firebase Analytics Integration -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBkmjGFj4mxDVp6gB5w4xYwBCpNxiZPnc4",
+        authDomain: "golive-c9102.firebaseapp.com",
+        projectId: "golive-c9102",
+        storageBucket: "golive-c9102.firebasestorage.app",
+        messagingSenderId: "623929935110",
+        appId: "1:623929935110:web:df6f8d6b20d141c91e8a87",
+        measurementId: "G-0GRPFVPCBG"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      // --- Custom Event Logging Logic ---
+
+      // Helper to log events to console (dev) and Firebase
+      const logCustomEvent = (eventName, params) => {
+          // console.log(`[Analytics] ${eventName}`, params); // Uncomment for debugging
+          logEvent(analytics, eventName, params);
+      };
+
+      // 1. Click Tracking (Global delegation)
+      document.addEventListener('click', (e) => {
+          const target = e.target.closest('a, button');
+          if (target) {
+              const label = target.innerText.slice(0, 50) || target.getAttribute('aria-label') || 'Unknown Element';
+              const href = target.getAttribute('href');
+              const id = target.getAttribute('id');
+              
+              logCustomEvent('element_click', {
+                  element_type: target.tagName,
+                  element_text: label,
+                  link_url: href,
+                  element_id: id
+              });
+          }
+      });
+
+      // 2. Scroll Depth Tracking
+      let milestonesLogged = new Set();
+      const checkScroll = () => {
+          // Calculate scroll percentage
+          const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.body.scrollHeight * 100);
+          
+          // Milestones to track: 25%, 50%, 75%, 90%
+          [25, 50, 75, 90].forEach(milestone => {
+              if (scrollPercent >= milestone && !milestonesLogged.has(milestone)) {
+                  milestonesLogged.add(milestone);
+                  logCustomEvent('scroll_depth', { depth_percent: milestone });
+              }
+          });
+      };
+      
+      // Throttle scroll event slightly
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+          if (!ticking) {
+              window.requestAnimationFrame(() => {
+                  checkScroll();
+                  ticking = false;
+              });
+              ticking = true;
+          }
+      });
+      
+      console.log('Firebase Analytics Initialized 🚀');
+    </script>
 </body>
 </html>
