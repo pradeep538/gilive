@@ -2152,9 +2152,17 @@
                       return;
                   }
                   
-                  // Invalid selection
+                  // Allow empty selection (optional)
+                  if (!searchInput.value) {
+                       hiddenInput.value = '';
+                       searchInput.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                       searchInput.classList.remove('border-green-500', 'focus:border-green-500', 'focus:ring-green-500');
+                       return;
+                  }
+
+                  // Invalid selection (if not empty and not matched)
                   searchInput.value = '';
-                  searchInput.placeholder = 'Please select a valid country';
+                  searchInput.placeholder = 'Select country or leave empty';
                   searchInput.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
               }
               document.getElementById('country_list').classList.add('hidden');
@@ -2269,7 +2277,10 @@
               timestamp: new Date()
           };
 
+
           console.log('[Form] Data collected:', formData);
+
+
           
           if (!db) {
              console.error('[Form] Firestore DB not initialized!');
@@ -2384,7 +2395,7 @@
                                     <label for="country_search" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Country</label>
                                     <div class="relative mt-1">
                                         <input type="text" id="country_search" autocomplete="off" placeholder="Search country..." class="block w-full rounded-lg border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm py-2 px-3 h-[42px]" oninput="filterCountries(this.value)" onfocus="showCountryList()" onblur="validateCountrySelection()">
-                                        <input type="hidden" id="country" name="country" required>
+                                        <input type="hidden" id="country" name="country">
                                         <div id="country_list" class="absolute z-50 w-full mt-1 max-h-60 overflow-auto rounded-md bg-white dark:bg-slate-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm hidden border border-gray-200 dark:border-slate-700">
                                             <!-- List items populated by JS -->
                                         </div>
