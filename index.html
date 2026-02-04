@@ -27,6 +27,14 @@
     <meta property="twitter:url" content="https://golive.dev/">
     <meta property="twitter:title" content="GoLive.dev - Launch Your MVP in 2-3 Days">
     <meta property="twitter:description" content="Stop fighting with configs. We turn your localhost into a production-ready product with CI/CD, SSL, and App Store approvals included.">
+    <!-- Microsoft Clarity Analytics -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vbwy9ckdy5");
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -236,6 +244,16 @@
             100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
         }
 
+        /* Scrollbar Hide */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
         /* Rocket Launch Styles */
         #rocket-group {
             animation: rocket-hover 3s ease-in-out infinite;
@@ -377,7 +395,7 @@
                         </svg>
                         <div class="absolute inset-0 blur-lg opacity-50 bg-purple-600 rounded-full"></div>
                     </div>
-                    <span class="text-2xl font-bold gradient-text">GoLive.dev</span>
+                    <span class="text-2xl font-bold gradient-text">GoLive.build</span>
                 </div>
                 
                 <!-- Right Side -->
@@ -543,7 +561,7 @@
                     </div>
                     
                     <!-- Hint -->
-                    <div class="absolute bottom-6 text-white/50 font-mono text-xs tracking-widest uppercase z-30 group-hover:text-white transition-colors select-none">
+                    <div class="absolute bottom-6 text-white/50 font-mono text-xs tracking-widest uppercase z-30 group-hover:text-white transition-colors select-none cursor-pointer" onclick="openModal('rocket_launch')">
                         Click to Launch
                     </div>
                 </div>
@@ -826,8 +844,8 @@
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
                             </svg>
                             <div>
-                                <p class="font-semibold text-gray-900 dark:text-white">Payment Integration</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Stripe setup? Included in v1.</p>
+                                <p class="font-semibold text-gray-900 dark:text-white">24/7 Support</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Dedicated support team ready to help anytime.</p>
                             </div>
                         </div>
                     </div>
@@ -934,8 +952,9 @@
                 <p class="text-xl text-gray-600 dark:text-gray-400">We've helped dozens of founders escape localhost hell.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-purple-500/50 transition duration-300">
+            <div class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide">
+                <!-- Testimonial 1 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-purple-500/50 transition duration-300 snap-start">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
                             S
@@ -951,7 +970,8 @@
                     <div class="text-yellow-500 text-2xl">★★★★★</div>
                 </div>
 
-                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-green-500/50 transition duration-300">
+                <!-- Testimonial 2 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-green-500/50 transition duration-300 snap-start">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
                             M
@@ -967,7 +987,8 @@
                     <div class="text-yellow-500 text-2xl">★★★★★</div>
                 </div>
 
-                <div class="bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-pink-500/50 transition duration-300">
+                <!-- Testimonial 3 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-pink-500/50 transition duration-300 snap-start">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
                             A
@@ -979,6 +1000,125 @@
                     </div>
                     <p class="text-gray-700 dark:text-slate-300 italic mb-4">
                         "Server setup would've taken me weeks. They had everything production-ready in 3 days. Insane."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-blue-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            J
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Jordan L.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">SaaS Dashboard</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "The whole process was seamless. From intake to live in 72 hours. Best decision I made."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-indigo-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            E
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Emma R.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Mobile Health App</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Had rejections in app store twice. GoLive fixed everything and got us approved on first submission."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-cyan-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            R
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Ryan M.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">E-Commerce Platform</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Analytics setup was perfect. Tracking every metric we needed from day one. No setup headaches."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 7 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-teal-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            L
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Lisa C.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Productivity Tool</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Worth the investment. We saved months of DevOps work and launched with confidence."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 8 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-rose-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-rose-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            V
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Vikram S.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Video Streaming App</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Couldn't have launched faster if I tried. Their infrastructure setup is bulletproof."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 9 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-amber-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            N
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Nina B.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Marketplace Platform</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "The team was incredibly responsive. Every question answered instantly. Professional and fast."
+                    </p>
+                    <div class="text-yellow-500 text-2xl">★★★★★</div>
+                </div>
+
+                <!-- Testimonial 10 -->
+                <div class="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)] bg-slate-900 rounded-2xl p-8 card-hover border-2 border-slate-800 hover:border-lime-500/50 transition duration-300 snap-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-lime-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            O
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white">Olivier D.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Analytics Dashboard</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 dark:text-slate-300 italic mb-4">
+                        "Expected delays, got everything early. The support even helped us optimize our deployment."
                     </p>
                     <div class="text-yellow-500 text-2xl">★★★★★</div>
                 </div>
@@ -1088,7 +1228,7 @@
             <button onclick="openModal('footer_cta')" class="inline-block bg-white text-purple-600 px-12 py-5 rounded-xl text-2xl font-bold hover:bg-gray-100 transition shadow-2xl hover:shadow-3xl transform hover:scale-105 cursor-pointer">
                 Book Your Launch Now →
             </button>
-            <p class="text-sm mt-8 opacity-75">🔥 3 slots left this month • First-come, first-served</p>
+            <p class="text-sm mt-8 opacity-75">🔥 Few slots left this month • First-come, first-served</p>
         </div>
     </section>
 
@@ -1307,6 +1447,59 @@
                     this.style.transform = 'scale(1)';
                 });
             });
+
+            // Testimonials Auto-Scroll
+            const testimonialScroller = document.querySelector('.flex.overflow-x-auto.gap-6.pb-4');
+            if (testimonialScroller) {
+                let scrollInterval;
+                const cardWidth = testimonialScroller.querySelector('div').offsetWidth + 24; // card width + gap
+                const scrollAmount = cardWidth; // Scroll by one card width
+
+                const autoScroll = () => {
+                    scrollInterval = setInterval(() => {
+                        testimonialScroller.scrollBy({
+                            left: scrollAmount,
+                            behavior: 'smooth'
+                        });
+
+                        // Check if we've reached the end and loop back
+                        if (testimonialScroller.scrollLeft + testimonialScroller.clientWidth >= testimonialScroller.scrollWidth - 10) {
+                            setTimeout(() => {
+                                testimonialScroller.scrollLeft = 0;
+                            }, 500);
+                        }
+                    }, 5000); // Scroll every 5 seconds
+                };
+
+                // Start auto-scroll
+                autoScroll();
+
+                // Pause on hover
+                testimonialScroller.addEventListener('mouseenter', () => {
+                    clearInterval(scrollInterval);
+                });
+
+                // Resume on mouse leave
+                testimonialScroller.addEventListener('mouseleave', () => {
+                    autoScroll();
+                });
+
+                // Pause on touch/drag
+                let isTouching = false;
+                testimonialScroller.addEventListener('touchstart', () => {
+                    isTouching = true;
+                    clearInterval(scrollInterval);
+                });
+
+                testimonialScroller.addEventListener('touchend', () => {
+                    isTouching = false;
+                    setTimeout(() => {
+                        if (!isTouching) {
+                            autoScroll();
+                        }
+                    }, 3000);
+                });
+            }
 
             // Smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
