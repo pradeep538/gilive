@@ -987,9 +987,9 @@
                         <div class="connector-path connector-2-3 hidden md:block"></div>
                         <div class="connector-path connector-3-4 hidden md:block"></div>
                         <!-- Day 1: Intake -->
-                        <div class="relative">
+                        <div class="relative cursor-pointer hover:opacity-80 transition-opacity" onclick="openModal('process_step_1')">
                             <div class="flex flex-col items-center">
-                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10 cursor-pointer">
                                     1
                                 </div>
                                 <div class="text-center">
@@ -1007,9 +1007,9 @@
                         </div>
 
                         <!-- Day 2: App Store + Infrastructure -->
-                        <div class="relative">
+                        <div class="relative cursor-pointer hover:opacity-80 transition-opacity" onclick="openModal('process_step_2')">
                             <div class="flex flex-col items-center">
-                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10 cursor-pointer">
                                     2
                                 </div>
                                 <div class="text-center">
@@ -1027,9 +1027,9 @@
                         </div>
 
                         <!-- Day 2: Infrastructure -->
-                        <div class="relative">
+                        <div class="relative cursor-pointer hover:opacity-80 transition-opacity" onclick="openModal('process_step_3')">
                             <div class="flex flex-col items-center">
-                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10 cursor-pointer">
                                     3
                                 </div>
                                 <div class="text-center">
@@ -1047,9 +1047,9 @@
                         </div>
 
                         <!-- Day 3: Analytics & Launch -->
-                        <div class="relative">
+                        <div class="relative cursor-pointer hover:opacity-80 transition-opacity" onclick="openModal('process_step_4')">
                             <div class="flex flex-col items-center">
-                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10 cursor-pointer">
                                     🚀
                                     <!-- Particle effect at final step -->
                                     <div class="particle-container hidden md:block">
@@ -1078,14 +1078,14 @@
                 </div>
 
                 <!-- Mobile Timeline -->
-                <div class="md:hidden space-y-4">
-                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-purple-500 shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
-                            <div>
-                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">Intake & Setup</h3>
-                                <p class="text-xs font-semibold text-purple-600 dark:text-purple-400 mb-2">Day 1</p>
-                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                <div class="md:hidden space-y-3">
+                    <div class="step-item bg-gradient-to-r from-purple-500/10 to-purple-600/10 dark:from-purple-900/30 dark:to-purple-800/30 rounded-xl p-4 border-l-4 border-purple-500 shadow cursor-pointer hover:shadow-lg transition-all" onclick="openModal('process_step_1')">
+                        <div class="flex items-start gap-3">
+                            <div class="process-circle w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 text-sm cursor-pointer">1</div>
+                            <div class="flex-1">
+                                <h3 class="step-title text-lg font-bold text-gray-900 dark:text-white">Intake & Setup</h3>
+                                <p class="text-xs font-semibold text-purple-600 dark:text-purple-400 mb-1">Day 1</p>
+                                <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-0.5">
                                     <li>✓ Kickoff call</li>
                                     <li>✓ Project assessment</li>
                                     <li>✓ Launch roadmap</li>
@@ -1094,13 +1094,13 @@
                         </div>
                     </div>
 
-                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-blue-500 shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
-                            <div>
-                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">App Store + Infrastructure</h3>
-                                <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-2">Day 2</p>
-                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <div class="step-item bg-gradient-to-r from-blue-500/10 to-blue-600/10 dark:from-blue-900/30 dark:to-blue-800/30 rounded-xl p-4 border-l-4 border-blue-500 shadow cursor-pointer hover:shadow-lg transition-all" onclick="openModal('process_step_2')">
+                        <div class="flex items-start gap-3">
+                            <div class="process-circle w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 text-sm cursor-pointer">2</div>
+                            <div class="flex-1">
+                                <h3 class="step-title text-lg font-bold text-gray-900 dark:text-white">App Store + Infrastructure</h3>
+                                <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">Day 2</p>
+                                <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-0.5">
                                     <li>✓ Store accounts & certificates</li>
                                     <li>✓ Servers & SSL</li>
                                     <li>✓ CI/CD pipelines</li>
@@ -1109,13 +1109,13 @@
                         </div>
                     </div>
 
-                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-green-500 shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
-                            <div>
-                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">Analytics & Launch</h3>
-                                <p class="text-xs font-semibold text-green-600 dark:text-green-400 mb-2">Day 3</p>
-                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <div class="step-item bg-gradient-to-r from-green-500/10 to-green-600/10 dark:from-green-900/30 dark:to-green-800/30 rounded-xl p-4 border-l-4 border-green-500 shadow cursor-pointer hover:shadow-lg transition-all" onclick="openModal('process_step_3')">
+                        <div class="flex items-start gap-3">
+                            <div class="process-circle w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 text-sm cursor-pointer">3</div>
+                            <div class="flex-1">
+                                <h3 class="step-title text-lg font-bold text-gray-900 dark:text-white">Analytics & Launch</h3>
+                                <p class="text-xs font-semibold text-green-600 dark:text-green-400 mb-1">Day 3</p>
+                                <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-0.5">
                                     <li>✓ Analytics configured</li>
                                     <li>✓ Monitoring active</li>
                                     <li>✓ You're live!</li>
