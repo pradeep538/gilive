@@ -254,6 +254,352 @@
             display: none;
         }
 
+        /* ===== ANIMATED FLOW TIMELINE ===== */
+        
+        /* Sequential connector animations - fill one by one, then keep all visible */
+        .connector-path {
+            position: absolute;
+            height: 3px;
+            top: 40px;
+            background: transparent;
+            z-index: 5;
+            opacity: 0;
+        }
+
+        /* Connector 1→2 */
+        .connector-1-2 {
+            left: calc(12.5% + 40px);
+            width: calc(25% - 80px);
+            background: linear-gradient(90deg, #a855f7, #6366f1);
+            animation: fillSequential1 6s ease-in-out infinite;
+        }
+
+        /* Connector 2→3 */
+        .connector-2-3 {
+            left: calc(37.5% + 40px);
+            width: calc(25% - 80px);
+            background: linear-gradient(90deg, #6366f1, #10b981);
+            animation: fillSequential2 6s ease-in-out infinite;
+        }
+
+        /* Connector 3→4 */
+        .connector-3-4 {
+            left: calc(62.5% + 40px);
+            width: calc(25% - 80px);
+            background: linear-gradient(90deg, #10b981, #fbbf24);
+            animation: fillSequential3 6s ease-in-out infinite;
+        }
+
+        /* Connector 1→2: Wait, fill, then stay visible */
+        @keyframes fillSequential1 {
+            0%, 16.67% {
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                box-shadow: none;
+            }
+            16.67%, 33.33% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+            }
+            33.33%, 100% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+            }
+        }
+
+        /* Connector 2→3: Wait, fill, then stay visible */
+        @keyframes fillSequential2 {
+            0%, 33.33% {
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                box-shadow: none;
+            }
+            33.33%, 50% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+            }
+            50%, 100% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+            }
+        }
+
+        /* Connector 3→4: Wait, fill, then stay visible */
+        @keyframes fillSequential3 {
+            0%, 50% {
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                box-shadow: none;
+            }
+            50%, 66.67% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+            }
+            66.67%, 100% {
+                opacity: 1;
+                transform: scaleX(1);
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            }
+        }
+
+        /* Particle/Proton effect at final step */
+        .particle-container {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: 20px;
+            left: calc(100% - 20px);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            animation: particleFloat 3s ease-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            animation-delay: 0.5s;
+            left: 0;
+            top: 0;
+        }
+
+        .particle:nth-child(2) {
+            animation-delay: 1.2s;
+            left: 5px;
+            top: 5px;
+        }
+
+        .particle:nth-child(3) {
+            animation-delay: 1.9s;
+            left: -5px;
+            top: 10px;
+        }
+
+        .particle:nth-child(4) {
+            animation-delay: 2.6s;
+            left: 10px;
+            top: -5px;
+        }
+
+        .particle:nth-child(5) {
+            animation-delay: 3.3s;
+            left: 0;
+            top: 15px;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        .particle:nth-child(1) { --tx: 30px; --ty: -40px; }
+        .particle:nth-child(2) { --tx: 50px; --ty: -20px; }
+        .particle:nth-child(3) { --tx: 40px; --ty: 30px; }
+        .particle:nth-child(4) { --tx: 20px; --ty: -50px; }
+        .particle:nth-child(5) { --tx: -30px; --ty: -30px; }
+        
+        /* Process Circle Animations with glow */
+        .process-circle {
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, 
+                       pulseGlow 2s ease-in-out 1.2s infinite;
+            opacity: 0;
+            position: relative;
+        }
+
+        .process-circle:nth-child(1) { animation-delay: 0.2s, 1.2s; }
+        .process-circle:nth-child(2) { animation-delay: 0.4s, 1.4s; }
+        .process-circle:nth-child(3) { animation-delay: 0.6s, 1.6s; }
+        .process-circle:nth-child(4) { animation-delay: 0.8s, 1.8s; }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        /* Enhanced hover effect */
+        .process-circle {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .process-circle:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 25px rgba(102, 126, 234, 1));
+        }
+
+        /* Animated text reveal */
+        .step-title {
+            animation: slideInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animated list items with stagger */
+        .step-item {
+            animation: slideInLeft 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .step-item:nth-child(1) { animation-delay: 0.5s; }
+        .step-item:nth-child(2) { animation-delay: 0.65s; }
+        .step-item:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Main progress line - clean reveal */
+        .progress-line {
+            animation: lineReveal 1.5s ease-out forwards;
+            background: linear-gradient(to right, #a855f7, #6366f1, #10b981, #fbbf24);
+            opacity: 1;
+        }
+
+        @keyframes lineReveal {
+            from {
+                opacity: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Benefit cards floating animation */
+        .benefit-card {
+            animation: floatIn 0.6s ease-out forwards, float 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 1.2s, 1.8s; }
+        .benefit-card:nth-child(2) { animation-delay: 1.4s, 2s; }
+        .benefit-card:nth-child(3) { animation-delay: 1.6s, 2.2s; }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Launch CTA pulse animation */
+        .launch-cta {
+            animation: ctaPulse 2s ease-in-out infinite, scaleIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(34, 197, 94, 0);
+                transform: scale(1.02);
+            }
+        }
+                background-position: 0 0;
+            }
+        }
+
+        /* Floating animation for benefit cards */
+        .benefit-card {
+            animation: floatCard 3s ease-in-out infinite;
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 0s; }
+        .benefit-card:nth-child(2) { animation-delay: 0.3s; }
+        .benefit-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Final CTA pulse */
+        .launch-cta {
+            animation: ctaPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+            }
+        }
+
         /* Rocket Launch Styles */
         #rocket-group {
             animation: rocket-hover 3s ease-in-out infinite;
@@ -627,116 +973,204 @@
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-6xl font-bold mb-6">The GoLive Process</h2>
                 <p class="text-xl md:text-2xl text-gray-600 dark:text-blue-200 max-w-3xl mx-auto">
-                    A battle-tested system that takes you from <span class="font-semibold">working MVP</span> to <span class="font-semibold">production launch</span> in days, not weeks.
+                    A battle-tested system that takes you from <span class="font-semibold">working MVP</span> to <span class="font-semibold">production launch</span> in <span class="text-purple-600 dark:text-purple-400 font-bold">2-3 days</span>.
                 </p>
             </div>
 
-            <!-- Animated SVG Process Flow -->
+            <!-- Better Timeline Design -->
             <div class="mb-16">
-                <svg id="processFlow" viewBox="0 0 1000 400" class="w-full h-auto">
-                    <defs>
-                        <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
-                        </linearGradient>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#667eea" />
-                        </marker>
-                    </defs>
-                    
-                    <!-- Connecting path -->
-                    <path id="flowPath" d="M 100 200 L 250 200 L 300 150 L 450 150 L 500 200 L 650 200 L 700 250 L 850 250" 
-                          stroke="url(#pathGradient)" 
-                          stroke-width="4" 
-                          fill="none" 
-                          stroke-dasharray="10,5"
-                          marker-end="url(#arrowhead)"
-                          class="draw-svg"/>
-                    
-                    <!-- Progress circles -->
-                    <g id="step1" class="process-step" style="cursor: pointer;">
-                        <circle cx="100" cy="200" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
-                        <text x="100" y="210" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">1</text>
-                        <text x="100" y="270" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Intake</text>
-                    </g>
-                    
-                    <g id="step2" class="process-step" style="cursor: pointer;">
-                        <circle cx="300" cy="150" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
-                        <text x="300" y="160" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">2</text>
-                        <text x="300" y="110" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Store Setup</text>
-                    </g>
-                    
-                    <g id="step3" class="process-step" style="cursor: pointer;">
-                        <circle cx="500" cy="200" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
-                        <text x="500" y="210" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">3</text>
-                        <text x="500" y="270" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Infrastructure</text>
-                    </g>
-                    
-                    <g id="step4" class="process-step" style="cursor: pointer;">
-                        <circle cx="700" cy="250" r="40" class="fill-white dark:fill-slate-800" stroke="#667eea" stroke-width="4"/>
-                        <text x="700" y="260" text-anchor="middle" font-size="28" font-weight="bold" fill="#667eea">4</text>
-                        <text x="700" y="310" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Analytics</text>
-                    </g>
-                    
-                    <g id="step5" class="process-step" style="cursor: pointer;">
-                        <circle cx="900" cy="250" r="50" fill="#10b981" stroke="#059669" stroke-width="4"/>
-                        <path d="M 880 250 L 895 265 L 925 235" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        <text x="900" y="320" text-anchor="middle" font-size="16" font-weight="600" class="fill-gray-700 dark:fill-gray-200">Live! 🚀</text>
-                    </g>
-                </svg>
+                <!-- Desktop Timeline -->
+                <div class="hidden md:block">
+                    <div class="grid grid-cols-4 gap-6 mb-8 relative">
+                        <!-- Sequential Flow Connectors -->
+                        <div class="connector-path connector-1-2 hidden md:block"></div>
+                        <div class="connector-path connector-2-3 hidden md:block"></div>
+                        <div class="connector-path connector-3-4 hidden md:block"></div>
+                        <!-- Day 1: Intake -->
+                        <div class="relative">
+                            <div class="flex flex-col items-center">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                    1
+                                </div>
+                                <div class="text-center">
+                                    <h3 class="step-title text-2xl font-bold text-gray-900 dark:text-white mb-1">Intake & Setup</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Day 1</p>
+                                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                        <li class="step-item">✓ Kickoff call</li>
+                                        <li class="step-item">✓ Project assessment</li>
+                                        <li class="step-item">✓ Launch roadmap</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Connector -->
+                            <div class="absolute top-10 left-full w-6 h-1 bg-gradient-to-r from-purple-500 to-blue-500 hidden"></div>
+                        </div>
+
+                        <!-- Day 2: App Store + Infrastructure -->
+                        <div class="relative">
+                            <div class="flex flex-col items-center">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                    2
+                                </div>
+                                <div class="text-center">
+                                    <h3 class="step-title text-2xl font-bold text-gray-900 dark:text-white mb-1">App Store Setup</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Day 2</p>
+                                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                        <li class="step-item">✓ Store accounts</li>
+                                        <li class="step-item">✓ Certificates & keys</li>
+                                        <li class="step-item">✓ Metadata ready</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Connector -->
+                            <div class="absolute top-10 left-full w-6 h-1 bg-gradient-to-r from-blue-500 to-green-500 hidden"></div>
+                        </div>
+
+                        <!-- Day 2: Infrastructure -->
+                        <div class="relative">
+                            <div class="flex flex-col items-center">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                    3
+                                </div>
+                                <div class="text-center">
+                                    <h3 class="step-title text-2xl font-bold text-gray-900 dark:text-white mb-1">Infrastructure</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Day 2</p>
+                                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                        <li class="step-item">✓ Servers & SSL</li>
+                                        <li class="step-item">✓ CI/CD pipelines</li>
+                                        <li class="step-item">✓ Databases setup</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Connector -->
+                            <div class="absolute top-10 left-full w-6 h-1 bg-gradient-to-r from-green-500 to-yellow-500 hidden"></div>
+                        </div>
+
+                        <!-- Day 3: Analytics & Launch -->
+                        <div class="relative">
+                            <div class="flex flex-col items-center">
+                                <div class="process-circle w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4 relative z-10">
+                                    🚀
+                                    <!-- Particle effect at final step -->
+                                    <div class="particle-container hidden md:block">
+                                        <div class="particle"></div>
+                                        <div class="particle"></div>
+                                        <div class="particle"></div>
+                                        <div class="particle"></div>
+                                        <div class="particle"></div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <h3 class="step-title text-2xl font-bold text-gray-900 dark:text-white mb-1">Go Live!</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Day 3</p>
+                                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                        <li class="step-item">✓ Analytics active</li>
+                                        <li class="step-item">✓ Monitoring live</li>
+                                        <li class="step-item">✓ You're shipped!</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connecting Line -->
+                    <div class="progress-line relative h-1 bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 to-yellow-500 rounded-full mb-8"></div>
+                </div>
+
+                <!-- Mobile Timeline -->
+                <div class="md:hidden space-y-4">
+                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-purple-500 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
+                            <div>
+                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">Intake & Setup</h3>
+                                <p class="text-xs font-semibold text-purple-600 dark:text-purple-400 mb-2">Day 1</p>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>✓ Kickoff call</li>
+                                    <li>✓ Project assessment</li>
+                                    <li>✓ Launch roadmap</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-blue-500 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
+                            <div>
+                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">App Store + Infrastructure</h3>
+                                <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-2">Day 2</p>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>✓ Store accounts & certificates</li>
+                                    <li>✓ Servers & SSL</li>
+                                    <li>✓ CI/CD pipelines</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-item bg-white dark:bg-slate-800 rounded-2xl p-6 border-l-4 border-green-500 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="process-circle w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
+                            <div>
+                                <h3 class="step-title text-xl font-bold text-gray-900 dark:text-white">Analytics & Launch</h3>
+                                <p class="text-xs font-semibold text-green-600 dark:text-green-400 mb-2">Day 3</p>
+                                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                    <li>✓ Analytics configured</li>
+                                    <li>✓ Monitoring active</li>
+                                    <li>✓ You're live!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Process Steps Details -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-purple-100 dark:border-purple-900/30" data-step="1">
-                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <!-- Key Benefits Row -->
+            <div class="grid md:grid-cols-3 gap-6 mt-12">
+                <div class="benefit-card bg-white/50 dark:bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-purple-200 dark:border-purple-900/30">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
                         </svg>
+                        <h4 class="font-bold text-gray-900 dark:text-white">Expedited Launch</h4>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Intake</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Quick form. Tell us about your MVP. We'll map out your launch path.</p>
-                    <div class="mt-4 text-xs font-semibold text-purple-600 dark:text-purple-400">Day 1</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">We handle the complexity. Your app ships faster.</p>
                 </div>
 
-                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-blue-100 dark:border-blue-900/30" data-step="2">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                <div class="benefit-card bg-white/50 dark:bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-blue-200 dark:border-blue-900/30">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H3a1 1 0 00-1 1v10a1 1 0 001 1h14a1 1 0 001-1V5a1 1 0 00-1-1h-3a1 1 0 000-2 2 2 0 00-2 2H4z"/>
                         </svg>
+                        <h4 class="font-bold text-gray-900 dark:text-white">Unlimited Resubmissions</h4>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">App Stores</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Accounts configured. Certificates signed. Metadata perfected. Ready to submit.</p>
-                    <div class="mt-4 text-xs font-semibold text-blue-600 dark:text-blue-400">Day 2</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Rejected? We fix it and resubmit. All included. No extra fees.</p>
                 </div>
 
-                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-green-100 dark:border-green-900/30" data-step="3">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                <div class="benefit-card bg-white/50 dark:bg-slate-800/50 backdrop-blur rounded-2xl p-6 border border-green-200 dark:border-green-900/30">
+                    <div class="flex items-center gap-3 mb-3">
+                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"/>
                         </svg>
+                        <h4 class="font-bold text-gray-900 dark:text-white">Full Ownership</h4>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Infrastructure</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Production ready. SSL secured. Environments separated. Zero downtime.</p>
-                    <div class="mt-4 text-xs font-semibold text-green-600 dark:text-green-400">Day 2</div>
-                </div>
-
-                <div class="timeline-step bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border-2 border-yellow-100 dark:border-yellow-900/30" data-step="4">
-                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/50 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Analytics</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">Events tracked. Crashes monitored. Data flowing. You'll know everything.</p>
-                    <div class="mt-4 text-xs font-semibold text-yellow-600 dark:text-yellow-400">Day 3</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">You own everything. Full access to servers, accounts, and source code.</p>
                 </div>
             </div>
 
-            <div class="text-center mt-12">
-                <div class="inline-block bg-green-100 border-2 border-green-300 rounded-2xl px-8 py-6">
-                    <p class="text-2xl font-bold text-green-800 mb-2">🎉 Day 3: You're Live!</p>
-                    <p class="text-green-700">Store links delivered. Analytics flowing. Marketing playbooks in hand. Time to ship.</p>
+            <!-- Day 3: You're Live Card -->
+            <div class="hidden md:block mt-16 mb-0">
+                <div class="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 border-2 border-green-300 dark:border-green-700 rounded-2xl px-6 py-3 text-center shadow-lg">
+                    <p class="text-3xl font-bold text-green-800 dark:text-green-100 mb-1">🎉 Day 3: You're Live!</p>
+                    <p class="text-green-700 dark:text-green-200">Store links delivered. Analytics flowing. Marketing playbooks in hand. Time to ship.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <div class="launch-cta inline-block bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-300 dark:border-green-800 rounded-2xl px-8 py-6">
+                    <p class="text-3xl font-bold text-green-800 dark:text-green-100 mb-2">🚀 Fast-Track Your App Launch</p>
+                    <p class="text-green-700 dark:text-green-200 text-lg">Streamlined deployment with dedicated support from start to live.</p>
                 </div>
             </div>
         </div>
