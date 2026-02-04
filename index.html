@@ -1728,11 +1728,25 @@
           }, 200);
       }
 
+      // ===== FUNNEL TRACKING SYSTEM =====
+      // Track the user journey: CTA → Form Open → User Action (Submit/Cancel)
+      let funnelSessionData = {
+          sessionId: 'session_' + Math.random().toString(36).substr(2, 9),
+          ctaSource: null,
+          formOpenedAt: null,
+          formOpenedSource: null,
+          timeOnForm: 0
+      };
+
       // Track Form Start (once per session)
       let formStarted = false;
       document.getElementById('contactForm').addEventListener('input', () => {
           if (!formStarted) {
-              logCustomEvent('form_start', { source: 'contact_form' });
+              logCustomEvent('form_interaction', { 
+                  step: 'form_field_interaction',
+                  source: funnelSessionData.formOpenedSource,
+                  session_id: funnelSessionData.sessionId
+              });
               formStarted = true;
           }
       });
@@ -1745,17 +1759,50 @@
           }
       });
 
-
-      // Modal Logic
+      // ===== FUNNEL: STEP 1 - CTA CLICKED =====
+      // Modal Logic - Enhanced with Funnel Tracking
       window.openModal = (source = 'landing_page') => {
+          // Record the CTA source
+          funnelSessionData.ctaSource = source;
+          funnelSessionData.formOpenedAt = new Date().getTime();
+          funnelSessionData.formOpenedSource = source;
+          
           document.getElementById('contactModal').classList.remove('hidden');
           document.body.style.overflow = 'hidden'; 
-          logCustomEvent('modal_open', { source: source });
+          
+          // ===== FUNNEL: STEP 2 - FORM OPENED =====
+          logCustomEvent('funnel_form_opened', { 
+              source: source,
+              session_id: funnelSessionData.sessionId,
+              step: 'form_open',
+              step_number: 2,
+              funnel_name: 'launch_request'
+          });
+          
+          console.log('[Funnel] Step 2 - Form Opened from source:', source);
       }
 
       window.closeModal = () => {
+          // Calculate time spent on form
+          const timeSpent = funnelSessionData.formOpenedAt 
+              ? (new Date().getTime() - funnelSessionData.formOpenedAt) / 1000 
+              : 0;
+          
           document.getElementById('contactModal').classList.add('hidden');
           document.body.style.overflow = 'auto'; 
+          
+          // ===== FUNNEL: STEP 3 - USER CANCELLED =====
+          logCustomEvent('funnel_form_cancelled', { 
+              source: funnelSessionData.formOpenedSource,
+              session_id: funnelSessionData.sessionId,
+              step: 'form_cancel',
+              step_number: 3,
+              funnel_name: 'launch_request',
+              time_on_form_seconds: timeSpent,
+              action: 'cancel'
+          });
+          
+          console.log('[Funnel] Step 3 - Form Cancelled. Time on form:', timeSpent, 'seconds');
       }
 
       window.openSuccessModal = () => {
@@ -1778,8 +1825,6 @@
           spinner.classList.remove('hidden');
 
           console.log('[Form] Starting submission...');
-
-
 
           const formData = {
               full_name: document.getElementById('full_name').value,
@@ -1811,10 +1856,35 @@
               const docRef = await Promise.race([request, timeout]);
               
               console.log('[Form] Document written with ID: ', docRef.id);
+              
+              // Calculate time spent on form
+              const timeSpent = funnelSessionData.formOpenedAt 
+                  ? (new Date().getTime() - funnelSessionData.formOpenedAt) / 1000 
+                  : 0;
+              
+              // ===== FUNNEL: STEP 3 - USER SUBMITTED =====
+              logCustomEvent('funnel_form_submitted', { 
+                  source: funnelSessionData.formOpenedSource,
+                  session_id: funnelSessionData.sessionId,
+                  step: 'form_submit',
+                  step_number: 3,
+                  funnel_name: 'launch_request',
+                  product_type: formData.product_type,
+                  country: formData.country,
+                  time_on_form_seconds: timeSpent,
+                  action: 'submit',
+                  lead_id: docRef.id
+              });
+              
+              // Track successful conversion
               logCustomEvent('lead_submission', { 
                   product_type: formData.product_type,
-                  country: formData.country
+                  country: formData.country,
+                  session_id: funnelSessionData.sessionId,
+                  source: funnelSessionData.formOpenedSource
               });
+              
+              console.log('[Funnel] Step 3 - Form Submitted. Time on form:', timeSpent, 'seconds. Lead ID:', docRef.id);
               
               closeModal();
               document.getElementById('contactForm').reset();
@@ -1822,7 +1892,20 @@
           } catch (error) {
               console.error("[Form] Error adding document: ", error);
               alert("Error: " + error.message + ". Please try again.");
-              logCustomEvent('lead_submission_error', { error: error.message });
+              
+              // Track submission error
+              logCustomEvent('funnel_form_error', { 
+                  source: funnelSessionData.formOpenedSource,
+                  session_id: funnelSessionData.sessionId,
+                  step: 'form_submit',
+                  error_message: error.message,
+                  funnel_name: 'launch_request'
+              });
+              
+              logCustomEvent('lead_submission_error', { 
+                  error: error.message,
+                  session_id: funnelSessionData.sessionId
+              });
           } finally {
               btn.disabled = false;
               btn.querySelector('span').innerText = 'Submit Request';
