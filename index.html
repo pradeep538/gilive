@@ -649,6 +649,105 @@
 
         .inner-fire {
             width: 12px;
+            height: 40px;
+            background: linear-gradient(to bottom, #fbbf24, #f97316);
+            animation: flame-burn 0.15s infinite alternate;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+            filter: blur(1px);
+        }
+
+        /* Smooth Form Error Banner */
+        .form-error-banner {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 1px solid #fca5a5;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .form-error-banner.show {
+            display: block;
+        }
+
+        .form-error-banner.hide {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .error-banner-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #991b1b;
+        }
+
+        .error-banner-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .error-banner-content {
+            color: #7f1d1d;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .error-banner-item {
+            margin: 0.25rem 0;
+        }
+
+        /* Inline field error message */
+        .field-error-message {
+            display: none;
+            color: #dc2626;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            animation: fadeInError 0.2s ease-out;
+        }
+
+        .field-error-message.show {
+            display: block;
+        }
+
+        @keyframes fadeInError {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .inner-fire {
+            width: 12px;
             height: 50px;
             background: #fff;
             animation: flame-burn 0.15s infinite alternate-reverse;
@@ -760,9 +859,9 @@
                         <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                     </button>
 
-                    <a href="#pricing" class="gradient-bg text-white px-6 py-2.5 rounded-lg hover:opacity-90 transition font-semibold shadow-lg hover:shadow-xl hidden md:inline-block">
+                    <button onclick="scrollToAndOpenModal('navbar_cta')" class="gradient-bg text-white px-6 py-2.5 rounded-lg hover:opacity-90 transition font-semibold shadow-lg hover:shadow-xl hidden md:inline-block cursor-pointer">
                         Get Started →
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -798,12 +897,12 @@
                         We'll get you from <span class="bg-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-100 px-2 py-1 rounded">MVP</span> to <span class="bg-green-200 dark:bg-green-900/50 dark:text-green-100 px-2 py-1 rounded">Live</span> in 2-3 days. 
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                        <a href="#pricing" class="group gradient-bg text-white px-8 py-4 rounded-xl text-lg font-bold hover:opacity-90 transition shadow-xl hover:shadow-2xl pulse-glow flex items-center justify-center gap-2">
+                        <button onclick="scrollToAndOpenModal('hero_cta')" class="group gradient-bg text-white px-8 py-4 rounded-xl text-lg font-bold hover:opacity-90 transition shadow-xl hover:shadow-2xl pulse-glow flex items-center justify-center gap-2 cursor-pointer">
                             Launch My Product
                             <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
-                        </a>
+                        </button>
                         <a href="#how-it-works" class="border-2 border-purple-600 text-purple-600 px-8 py-4 rounded-xl text-lg font-bold hover:bg-purple-50 transition shadow-lg hover:shadow-xl inline-block text-center">
                             See Process →
                         </a>
@@ -1666,7 +1765,7 @@
     </section>
 
     <!-- Mega Footer (Enterprise Style) -->
-    <footer class="bg-slate-950 text-slate-400 font-sans border-t border-slate-900">
+    <footer class="hidden bg-slate-950 text-slate-400 font-sans border-t border-slate-900">
         <!-- Newsletter Section -->
 
 
@@ -2223,6 +2322,22 @@
           console.log('[Funnel] Step 2 - Form Opened from source:', source);
       }
 
+      // Scroll to pricing section and open modal
+      window.scrollToAndOpenModal = (source = 'landing_page') => {
+          // Scroll to pricing section
+          const pricingSection = document.getElementById('pricing');
+          if (pricingSection) {
+              pricingSection.scrollIntoView({ behavior: 'smooth' });
+              // Open modal after scroll completes
+              setTimeout(() => {
+                  openModal(source);
+              }, 1000);
+          } else {
+              // Fallback: open modal immediately if section not found
+              openModal(source);
+          }
+      }
+
       window.closeModal = () => {
           // Calculate time spent on form
           const timeSpent = funnelSessionData.formOpenedAt 
@@ -2256,8 +2371,123 @@
           document.body.style.overflow = 'auto';
       }
 
+      // Validation function to check form completeness
+      window.validateFormBeforeSubmit = () => {
+          const failedFields = [];
+          const fieldLabels = {
+              full_name: 'Full Name',
+              email: 'Email Address',
+              country: 'Country',
+              product_type: 'Product Type',
+              project_summary: 'Project Summary'
+          };
+          
+          const fullName = document.getElementById('full_name').value.trim();
+          if (!fullName) failedFields.push({ field: 'full_name', label: fieldLabels.full_name, reason: 'Required' });
+          
+          const email = document.getElementById('email').value.trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!email) {
+              failedFields.push({ field: 'email', label: fieldLabels.email, reason: 'Required' });
+          } else if (!emailRegex.test(email)) {
+              failedFields.push({ field: 'email', label: fieldLabels.email, reason: 'Invalid email format' });
+          }
+          
+          const country = document.getElementById('country').value.trim();
+          if (!country) failedFields.push({ field: 'country', label: fieldLabels.country, reason: 'Required' });
+          
+          const productType = document.getElementById('product_type').value.trim();
+          if (!productType) failedFields.push({ field: 'product_type', label: fieldLabels.product_type, reason: 'Required' });
+          
+          const projectSummary = document.getElementById('project_summary').value.trim();
+          if (!projectSummary) failedFields.push({ field: 'project_summary', label: fieldLabels.project_summary, reason: 'Required' });
+          
+          return {
+              isValid: failedFields.length === 0,
+              failedFields: failedFields
+          };
+      }
+
+      // Helper to show inline error messages below each field
+      window.showFormError = (failedFields) => {
+          // Clear any existing error messages
+          document.querySelectorAll('.field-error-message').forEach(msg => msg.remove());
+          
+          // Add error message below each failed field
+          failedFields.forEach(({ field, label, reason }) => {
+              const element = document.getElementById(field);
+              if (element) {
+                  const errorMsg = document.createElement('div');
+                  errorMsg.className = 'field-error-message show';
+                  errorMsg.textContent = reason;
+                  
+                  // Insert error message after the field
+                  element.parentNode.insertBefore(errorMsg, element.nextSibling);
+              }
+          });
+          
+          // Scroll to first error field
+          const firstError = document.getElementById(failedFields[0].field);
+          if (firstError) {
+              firstError.focus();
+              firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+      }
+
+      // Helper to highlight form fields with errors
+      window.highlightFormErrors = (failedFields) => {
+          // First, remove all error highlights
+          document.querySelectorAll('#contactForm input, #contactForm textarea, #contactForm select').forEach(field => {
+              field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500', 'ring-red-500');
+              field.classList.add('border-gray-300', 'focus:border-purple-500', 'focus:ring-purple-500');
+          });
+          
+          // Highlight failed fields
+          failedFields.forEach(({ field }) => {
+              const element = document.getElementById(field);
+              if (element) {
+                  element.classList.remove('border-gray-300', 'focus:border-purple-500', 'focus:ring-purple-500');
+                  element.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+              }
+          });
+      }
+
       window.submitForm = async (e) => {
           e.preventDefault();
+          
+          // Validate form before submission
+          const validation = validateFormBeforeSubmit();
+          
+          if (!validation.isValid) {
+              console.log('[Form] Validation failed - Missing/invalid fields:', validation.failedFields);
+              
+              // Highlight failed fields
+              highlightFormErrors(validation.failedFields);
+              
+              // Show smooth error banner instead of alert
+              showFormError(validation.failedFields);
+              
+              // Log validation failure to Firebase
+              const timeSpent = funnelSessionData.formOpenedAt 
+                  ? (new Date().getTime() - funnelSessionData.formOpenedAt) / 1000 
+                  : 0;
+              
+              logCustomEvent('form_validation_failed', {
+                  source: funnelSessionData.formOpenedSource,
+                  session_id: funnelSessionData.sessionId,
+                  step: 'form_submit_attempt',
+                  step_number: 3,
+                  funnel_name: 'launch_request',
+                  failed_fields: validation.failedFields.map(f => f.field),
+                  num_failed_fields: validation.failedFields.length,
+                  time_on_form_seconds: timeSpent,
+                  action: 'validation_failed',
+                  error_reasons: validation.failedFields.map(f => f.reason)
+              });
+              
+              return;
+          }
+          
           const btn = document.getElementById('submitBtn');
           const spinner = document.getElementById('loadingSpinner');
           
